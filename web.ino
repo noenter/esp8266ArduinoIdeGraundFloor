@@ -1,4 +1,3 @@
-
 void HTTP_init(void) {
   jsonWrite(configJson, "flashChip", String(ESP.getFlashChipId(), HEX));
 
@@ -26,6 +25,13 @@ void HTTP_init(void) {
   });
 
 
+
+  HTTP.on("/relay1", relay1);
+  HTTP.on("/relay2", relay2);
+  HTTP.on("/servo1O", servo1open);
+  HTTP.on("/servo1C", servo1close);
+  HTTP.on("/servo2O", servo1open);
+  HTTP.on("/servo2C", servo1close);
   // --------------------Выдаем данные configJson
   HTTP.on("/config.live.json", HTTP_GET, []() {
     HTTP.send(200, "application/json", configJson);
@@ -46,7 +52,7 @@ void HTTP_init(void) {
     }
   });
   // Добавляем функцию Update для перезаписи прошивки по WiFi при 1М(256K SPIFFS) и выше
-  httpUpdater.setup(&HTTP);
+  //httpUpdater.setup(&HTTP);
   // Запускаем HTTP сервер
   HTTP.begin();
 }

@@ -15,7 +15,7 @@
 //#include <DHT.h>                     //https://github.com/markruys/arduino-DHT   Support for DHT11 and DHT22/AM2302/RHT03
 
 // Объект для обнавления с web страницы
-ESP8266HTTPUpdateServer httpUpdater;
+//ESP8266HTTPUpdateServer httpUpdater;
 
 // Web интерфейс для устройства
 ESP8266WebServer HTTP(80);
@@ -27,7 +27,7 @@ File fsUploadFile;
 DNSServer dnsServer;
 
 //Планировщик задач (Число задач)
-TickerScheduler ts(3);
+TickerScheduler ts(2);
 
 // Объект для  webSocket
 WebSocketsServer webSocket = WebSocketsServer(81);
@@ -38,11 +38,25 @@ WebSocketsServer webSocket = WebSocketsServer(81);
 AHT10 myAHT10g(AHT10_ADDRESS_0X38);
 AHT10 myAHT10s(AHT10_ADDRESS_0X39);
 
-#define relay1pin 9
-#define relay2pin 10
+#define relay1pin 12
+#define relay2pin 14
 // Датчик DHT
 //#define dhtPin 4
 //DHT dht;
+void HTTP_init(void);
+
+boolean r1 = false;
+boolean r2 = false;
+String r1_Name = "OFF";
+String r2_Name = "OFF";
+uint8_t s1 = 0;
+uint8_t s2 = 0;
+String s1_Name = "OFF";
+String s2_Name = "OFF";
+
+#include <Servo.h>
+Servo servo;
+
 
 String configSetup = "{}"; // данные для config.setup.json
 String configJson = "{}";  // данные для config.live.json

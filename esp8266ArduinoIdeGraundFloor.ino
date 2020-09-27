@@ -24,7 +24,6 @@ void setup() {
   Serial.println("Start 1-WIFI");
   //Запускаем WIFI
   WIFIinit();
-  
   Serial.println("Start 8-Time");
   // Получаем время из сети
   Time_init();
@@ -41,22 +40,29 @@ void setup() {
   Serial.println("Start 13-sec_init");
   sec_init();
   Serial.println("Start 14-AHT");
-  while (myAHT10g.begin() != true)
-  {
-    Serial.println(F("AHT10 Ground not connected"));
-    delay(5000);
-  }
+  myAHT10g.begin();
+  //while (myAHT10g.begin() != true)
+  //{
+  //  Serial.println(F("AHT10 Ground not connected"));
+  //  delay(5000);
+  //}
   Serial.println(F("AHT10 OK"));
-  
-  while (myAHT10s.begin() != true)
-  {
-    Serial.println(F("AHT10 Street not connected")); //(F()) save string to flash & keeps dynamic memory free
-    delay(5000);
-  }
+  myAHT10s.begin();
+  //while (myAHT10s.begin() != true)
+  //{
+  //  Serial.println(F("AHT10 Street not connected")); //(F()) save string to flash & keeps dynamic memory free
+  //  delay(5000);
+  //}
   Serial.println(F("AHT10 OK"));
   AHT_init();
 
-
+  Serial.println("Start Relays_init");
+  relays_init();
+  
+  Serial.println("Start Servo_init");
+  servo_init();
+  delay(2000); // ждем 2 секунды
+  
 }
 
 void loop() {
@@ -65,5 +71,6 @@ void loop() {
   yield();
   webSocket.loop(); // Работа webSocket
   dnsServer.processNextRequest(); // Для работы DNS в режиме AP
-
+  
  }
+ 
